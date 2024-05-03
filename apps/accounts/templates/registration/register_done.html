@@ -1,0 +1,11 @@
+{% extends 'main/home.html' %}
+
+{% block title %}Добро пожаловать!{% endblock %}
+
+{% block something %}
+    <div class="container text-center">
+        <h1>Добро пожаловать {{ new_user.username }}!</h1>
+        <p>Ваш аккаунт был успешно создан.
+        Вы можете <a href="{% url 'login' %}">авторизоваться</a></p>
+    </div>
+{% endblock %}

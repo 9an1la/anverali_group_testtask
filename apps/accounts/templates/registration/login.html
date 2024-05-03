@@ -1,0 +1,43 @@
+{% extends 'main/home.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block something %}
+    <div class="container text-center justify-content-center align-self-center align-middle" style="height: 600px">
+        <h1>Вход</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                {% for field in form %}
+                <div class="mb-3">
+                    {{ field.label_tag }}
+                    <div>{{ field }}</div>
+                    {% if field.errors%}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            {{error}}
+                        </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="mb-3">
+                {% if form.errors %}
+                    <p>Неверный логин или пароль</p>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Войти">
+            </div>
+        </form>
+        <div class="mb-3">
+            <a href="{% url 'password_reset' %}">
+                Забыли пароль?
+            </a>
+        </div>
+        <div class="mb-3">
+            <a href="{% url 'register' %}">Регистрация</a>
+        </div>
+    </div>
+{% endblock %}

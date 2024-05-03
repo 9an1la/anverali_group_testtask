@@ -1,0 +1,53 @@
+{% extends 'main/home.html' %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block something %}
+    <div class="container text-center">
+        <h1>
+            Личный кабинет
+            {% if user.is_customer %}
+                заказчика
+            {% elif user.is_executor %}
+                исполнителя
+            {% else %}
+                админа
+            {% endif %}
+        </h1>
+        <div class="mb-3">
+            <h5>Имя пользователя</h5>
+            {{ user.username }}
+        </div>
+        <div class="mb-3">
+            <h5>Имя</h5>
+            {{ user.first_name }}
+        </div>
+        <div class="mb-3">
+            <h5>Фамилия</h5>
+            {{ user.last_name }}
+        </div>
+        <div class="mb-3">
+            <h5>Адрес почты</h5>
+            {{ user.email }}
+        </div>
+        <div class="mb-3">
+            {% if user.is_customer %}
+                <h5>Контактная информация</h5>
+                {{ user.customerprofile.contact_info }}
+                <h5>Опыт</h5>
+                {{ user.customerprofile.experience }}
+            {% elif user.is_executor %}
+                <h5>Контактная информация</h5>
+                {{ user.sellerprofile.contact_info }}
+                <h5>Опыт</h5>
+                {{ user.sellerprofile.experience }}
+            {% else %}
+                У админа нет контактной информации и опыта
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <p><a href="{% url 'edit' %}">редактировать профиль</a> |
+             <a href="{% url 'password_change' %}">сменить пароль</a></p>
+        </div>
+    </div>
+{% endblock %}
